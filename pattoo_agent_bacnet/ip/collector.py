@@ -9,8 +9,7 @@ from BAC0.core.io.IOExceptions import (
     UnknownObjectError, NoResponseFromController)
 
 # Pattoo libraries
-from pattoo_agent_bacnet.ip import configuration
-from pattoo_agent_bacnet import PATTOO_AGENT_BACNETIPD
+from pattoo_agent_bacnet.ip import configuration, PATTOO_AGENT_BACNETIPD
 from pattoo_shared import network
 from pattoo_shared import data
 from pattoo_shared import log
