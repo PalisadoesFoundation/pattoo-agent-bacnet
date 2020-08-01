@@ -48,34 +48,32 @@ Here is a sample of what should be added. An explanation follows.
 
 .. code-block:: yaml
 
-   pattoo_agent_bacnetipd:
+   polling_interval: 300
 
-     polling_interval: 300
+   polling_groups:
 
-     polling_groups:
+     - group_name: GROUP 1
+       ip_devices:
+          - ip.address.of.device1
+          - ip.address.of.device2
+       points:
+           - address: 162
+           - address: 181
+           - address: 1
+           - address: 2
+           - address: 3
 
-       - group_name: GROUP 1
-         ip_devices:
-            - ip.address.of.device1
-            - ip.address.of.device2
-         points:
-             - address: 162
-             - address: 181
-             - address: 1
-             - address: 2
-             - address: 3
-
-       - group_name: GROUP 2
-         ip_devices:
-           - ip.address.of.device3
-           - ip.address.of.device4
-         points:
-             - address: 134
-               multiplier: 8
-             - address: 136
-               multiplier: 10
-             - address: 144
-             - address: 158
+     - group_name: GROUP 2
+       ip_devices:
+         - ip.address.of.device3
+         - ip.address.of.device4
+       points:
+           - address: 134
+             multiplier: 8
+           - address: 136
+             multiplier: 10
+           - address: 144
+           - address: 158
 
 
 Configuration Explanation
@@ -88,30 +86,20 @@ This table outlines the purpose of each configuration parameter
 
    * - Section
      - Sub-Section
-     - Config Options
      - Description
-   * - ``pattoo_agent_bacnetipd:``
-     -
-     -
-     -
-   * -
-     - ``polling_interval``
+   * - ``polling_interval``
      -
      - The ``pattoo_agent_bacnetipd`` will report to the ``pattoo`` server every ``polling_interval`` seconds
-   * -
-     - ``polling_groups:``
+   * - ``polling_groups:``
      -
      - List of groupings of ``ip_devices`` that need data from a shared set of BACnet points (For example the same manufacturer's make and model).  Make this the first entry in the configuration sub-section. Make sure it starts with a dash '-' which indicates the beginning of a new grouping.
    * -
-     -
      - ``group_name:``
      - Unique name for a group of ``ip_devices`` that share the same BACnet parameters
    * -
-     -
      - ``ip_devices:``
      - List of ``ip_devices`` to poll for data
    * -
-     -
      - ``points:``
      - BACnet ``Analog Value`` point to poll for data from for the ``ip_devices``. Each ``address`` must be a BACnet point. The ``multiplier`` is the value by which the polled data result must be multiplied. This is useful in converting byte values to bits. The default ``multiplier`` is 1.
 
