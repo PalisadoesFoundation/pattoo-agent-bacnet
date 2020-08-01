@@ -3,7 +3,7 @@
 
 # Import project libraries
 from pattoo_agent_bacnet.ip import PATTOO_AGENT_BACNETIPD
-from pattoo_shared import configuration, files
+from pattoo_shared import configuration, files, log
 from pattoo_shared.configuration import Config
 from pattoo_shared.variables import IPTargetPollingPoints
 
@@ -30,7 +30,7 @@ class ConfigBACnetIP(Config):
         self._agent_config = files.read_yaml_file(config_file)
 
     def agent_ip_address(self):
-        """Get list polling target information in configuration file..
+        """Get list polling target information in configuration file.
 
         Args:
             None
@@ -43,10 +43,11 @@ class ConfigBACnetIP(Config):
         result = []
 
         # Get configuration snippet
-        key = PATTOO_AGENT_BACNETIPD
-        sub_key = 'agent_ip_address'
-        result = configuration.search(
-            key, sub_key, self._agent_config, die=True)
+        key = 'agent_ip_address'
+        result = self._agent_config.get(key)
+        if result is None:
+            log_message = '"{}" not found in configuration file'.format(key)
+            log.log2die(60002, log_message)
         return result
 
     def target_polling_points(self):
@@ -64,10 +65,14 @@ class ConfigBACnetIP(Config):
         datapoint_key = 'points'
 
         # Get configuration snippet
-        key = PATTOO_AGENT_BACNETIPD
-        sub_key = 'polling_groups'
-        groups = configuration.search(
-            key, sub_key, self._agent_config, die=True)
+        key = 'polling_groups'
+        groups = self._agent_config.get(key)
+
+        if groups is None:
+            log_message = '''\
+    "{}" parameter not found in configuration file. Will not poll.'''
+            log.log2info(60003, log_message)
+            return result
 
         # Create snmp objects
         for group in groups:
@@ -97,14 +102,7 @@ class ConfigBACnetIP(Config):
 
         """
         # Get result
-        key = PATTOO_AGENT_BACNETIPD
-        sub_key = 'polling_interval'
-        intermediate = configuration.search(
-            key, sub_key, self._agent_config, die=False)
-
-        # Default to 300
-        if bool(intermediate) is False:
-            result = 300
-        else:
-            result = abs(int(intermediate))
+        key = 'polling_interval'
+        result = self._agent_config.get(key, 300)
+        result = abs(int(result))
         return result
