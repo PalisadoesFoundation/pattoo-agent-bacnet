@@ -1,4 +1,4 @@
-"""Configure the bacnet agent"""
+"""Configure the bacnet agent."""
 import os
 from pattoo_shared.installation import configure, shared
 from pattoo_shared import files
@@ -33,7 +33,7 @@ def install():
     shared.chown(config_directory)
 
     config_file = configure.pattoo_config(
-                                        'pattoo_agent_bacnetd',
+                                        'pattoo_agent_bacnetipd',
                                         config_directory,
                                         bacnet_agent_dict)
 
