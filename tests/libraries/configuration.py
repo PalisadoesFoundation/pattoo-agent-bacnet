@@ -109,7 +109,7 @@ class UnittestConfig():
         try:
             f_handle = open(agent_config, 'w')
         except PermissionError:
-            log.log2die(50500, '''\
+            log.log2die(60008, '''\
 Insufficient permissions for creating the file:{}'''.format(f_handle))
         else:
             with f_handle:
