@@ -120,25 +120,6 @@ class TestConfigBACnetIP(unittest.TestCase):
         result = self.config.agent_api_server_url(agent_id)
         self.assertEqual(result, expected)
 
-    def test_web_api_ip_address(self):
-        """Testing method / function web_api_ip_address."""
-        # Test
-        result = self.config.web_api_ip_address()
-        self.assertEqual(result, '127.0.0.12')
-
-    def test_web_api_ip_bind_port(self):
-        """Testing method / function web_api_ip_bind_port."""
-        # Test
-        result = self.config.web_api_ip_bind_port()
-        self.assertEqual(result, 50002)
-
-    def test_web_api_server_url(self):
-        """Testing method / function web_api_server_url."""
-        # Test
-        result = self.config.web_api_server_url()
-        self.assertEqual(
-            result, 'http://127.0.0.12:50002/pattoo/api/v1/web/graphql')
-
     def test_daemon_directory(self):
         """Test pattoo_shared.Config inherited method daemon_directory."""
         # Nothing should happen. Directory exists in testing.

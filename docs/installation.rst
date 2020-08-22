@@ -1,4 +1,3 @@
-
 Basic Installation
 ==================
 
@@ -9,7 +8,6 @@ Prerequisites
 
 There are some software components that need to be installed prior to starting.
 
-#. Install the prerequisite packages for the ``easysnmp`` python pip package. `Instructions can be found here. <https://easysnmp.readthedocs.io/en/latest/>`_
 #. ``pattoo`` only runs on Python 3.6 or higher
 
 Let's install the software.
@@ -27,41 +25,59 @@ Follow these steps.
        $ mkdir -p /installation/parent/directory
        $ cd /installation/parent/directory
 
-#. Clone the repository to the parent directory using the ``git clone`` command. You can also choose to downloading and unzip the file in the parent directory. The repository can be found at: https://github.com/PalisadoesFoundation/pattoo-agent-bacnet
+#. Clone the repository to the parent directory using the ``git clone`` command. You can also choose to downloading and unzip the file in the parent directory. The repository can be found at: https://github.com/PalisadoesFoundation/pattoo-agent-bacnet.
+
+**Note** The repository should not be cloned to a directory with ``/home`` in its path
 
     .. code-block:: bash
 
        $ cd /installation/parent/directory
        $ git clone https://github.com/PalisadoesFoundation/pattoo-agent-bacnet.git
 
-#. Enter the ``/installation/parent/directory/pattoo-agent-bacnet`` directory with the ``pattoo-agent-bacnet`` files.
-#. Install the required packages using the ``pip_requirements`` document in the ``pattoo-agent-bacnet`` root directory
+4. Enter the ``/installation/parent/directory/pattoo-agent-bacnet`` directory with the ``pattoo-agent-bacnet`` files.
+#. Install the below packages from the ``pip_requirements`` document in the ``pattoo-agent-bacnet`` root directory for a seamless installation using the 
 
    .. code-block:: bash
 
-      $ pip3 install --user --requirement pip_requirements.txt
+      $ pip3 install --user PattooShared
+      $ pip3 install --user virtualenv
 
 #. Use the :doc:`configuration` to create a working configuration.
 #. Follow the configuration steps for each daemon as explained in the :doc:`agent`.
 
-Configuring systemd Daemons
+Running the installation
 ---------------------------
+Run the code block below to install the BACnet agent
 
-You can also setup all the ``pattoo-agent-bacnet`` agents as system daemons by executing the ``setup/systemd/bin/install_systemd.py`` script.
+   .. code-block:: bash
 
-You have to specify a ``--config_dir`` defining the configuration file directory.
+      $ sudo setup/install.py install all
 
-**Note** The daemons are not enabled or started by default. You will have to do this separately using the ``systemctl`` command after running the script.
 
-.. code-block:: bash
+Stopping, Starting and Restarting daemons
+------------------------------------------
+By default, the installation starts the daemons, and restarts them if they are already running, however, if you desire to start, stop or restart the system daemon for the BACnet agent after the installation the following code blocks should assist:
 
-   $ sudo setup/systemd/bin/install_systemd.py --config_dir ~/GitHub/pattoo-agent-bacnet/etc
+**Starting daemon**
+   .. code-block:: bash
 
-   SUCCESS! You are now able to start/stop and enable/disable the following systemd services:
+      $ sudo systemctl start pattoo_agent_bacnetipd.service 
 
-   pattoo_agent_os_spoked.service
-   pattoo_agent_snmpd.service
-   pattoo_agent_os_autonomousd.service
-   pattoo_agent_os_hubd.service
+**Stopping daemon**
+   .. code-block:: bash
 
-   $
+      $ sudo systemctl stop pattoo_agent_bacnetipd.service 
+
+**Restarting daemon**
+   .. code-block:: bash
+
+      $ sudo systemctl restart pattoo_agent_bacnetipd.service 
+
+Modifying configuration files
+---------------------------------
+
+Navigate to the  ``/etc/pattoo``  directory to modify the ``pattoo_agent_bacnetipd.yaml`` configuration file for the BACnet agent using your desired text editor, with the code block below:
+
+   .. code-block:: bash
+
+      $ cd /etc/pattoo
