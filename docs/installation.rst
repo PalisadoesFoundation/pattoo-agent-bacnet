@@ -25,14 +25,14 @@ Follow these steps.
        $ mkdir -p /installation/parent/directory
        $ cd /installation/parent/directory
 
-#. Clone the repository to the parent directory using the ``git clone`` command. You can also choose to downloading and unzip the file in the parent directory. The repository can be found at: https://github.com/PalisadoesFoundation/pattoo-agent-bacnet-agent-bacnet.
+#. Clone the repository to the parent directory using the ``git clone`` command. You can also choose to downloading and unzip the file in the parent directory. The repository can be found at: https://github.com/PalisadoesFoundation/pattoo-agent-bacnet.
 
 **Note** The repository should not be cloned to a directory with ``/home`` in its path
 
     .. code-block:: bash
 
        $ cd /installation/parent/directory
-       $ git clone https://github.com/PalisadoesFoundation/pattoo-agent-bacnet-agent-bacnet.git
+       $ git clone https://github.com/PalisadoesFoundation/pattoo-agent-bacnet.git
 
 4. Enter the ``/installation/parent/directory/pattoo-agent-bacnet`` directory with the ``pattoo-agent-bacnet`` files.
 #. Install the below packages from the ``pip_requirements`` document in the ``pattoo-agent-bacnet`` root directory for a seamless installation using the 
